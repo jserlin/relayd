@@ -17,9 +17,13 @@
         type: Boolean,
         default: true
       },
+      listenScroll: {
+        type: Boolean,
+        default: false
+      },
       data: {
         type: Array,
-        default: []
+        default: null
       }
     },
     mounted() {
@@ -34,15 +38,21 @@
         }
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
-          click: this.chilk
+          click: this.click
         })
-      },
-      enable() {
-        // 启用 better-scroll 默认开启
-        this.scroll && this.scroll.enable()
+
+        if (this.listenScroll) {
+          let me = this
+          this.scroll.on('scroll', (pos) => {
+            me.$emit('scroll', pos)
+          })
+        }
       },
       disable() {
         this.scroll && this.scroll.disable()
+      },
+      enable() {
+        this.scroll && this.scroll.enable()
       },
       refresh() {
         this.scroll && this.scroll.refresh()
@@ -51,12 +61,10 @@
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
       },
       scrollToElement() {
-        console.log(this.scroll)
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }
     },
     watch: {
-      // 根据data的变化 重新计算scroll
       data() {
         setTimeout(() => {
           this.refresh()
@@ -66,6 +74,6 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
 
 </style>

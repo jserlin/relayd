@@ -16,8 +16,9 @@ export function getData(el, name, val) {
   const prefix = 'data-'
   name = prefix + name
   if (val) {
-    el.setAttribute(name, val)
+    return el.setAttribute(name, val)
   } else {
-    el.getAttribute(name)
+    return el.getAttribute(name)
   }
 }
+// tip getData 方法未返回导致找茬很久！
