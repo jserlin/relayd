@@ -65,7 +65,7 @@
       return {
         scrollY: -1,
         currentIndex: 0,
-        diff: -1  //区块的上限和当前滚动位置的滚动差
+        diff: -1  // 区块的上限和当前滚动位置的滚动差
       }
     },
     created() {
